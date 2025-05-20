@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { User } from "./User";
 import { Software } from "./Software";
+import { Status } from "../constants/Status";
 
 @Entity()
 export class AccessRequest {
@@ -26,8 +27,8 @@ export class AccessRequest {
   @Column("text")
   reason!: string;
 
-  @Column({ default: "Pending" })
-  status!: "Pending" | "Approved" | "Rejected";
+  @Column({ type: "enum", enum: Status, default: Status.Pending })
+  status!: Status;
 
   @CreateDateColumn()
   createdAt!: Date;
