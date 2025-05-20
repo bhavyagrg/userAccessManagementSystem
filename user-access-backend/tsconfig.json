@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",                        // Allows modern JS features like optional chaining
+    "module": "CommonJS",                      // Node.js compatible module system
+    "lib": ["ES2020"],                         // Use modern JavaScript libraries
+    "strict": true,                            // Enables strict type checking
+    "esModuleInterop": true,                   // Allows `import x from 'x'` syntax
+    "skipLibCheck": true,                      // Speeds up compilation
+    "forceConsistentCasingInFileNames": true,  // Helps on case-sensitive file systems
+
+    // 🔑 Required for decorators
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    // Project setup
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "outDir": "./dist",                        // Where compiled files go
+    "rootDir": "./src"                         // Where source files are
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
