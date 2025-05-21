@@ -3,12 +3,10 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  CreateDateColumn,
-  UpdateDateColumn,
 } from "typeorm";
 import { User } from "./User";
 import { Software } from "./Software";
-import { Status } from "../constants/Status";
+import { Status } from "../constants/status";
 import { ACCESS_TYPE } from "../constants/user";
 
 @Entity()

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { RequestsService } from '../services/requestsService';
+import { Status } from '../constants/status';
 
 export class RequestsController {
     private requestsService: RequestsService;
@@ -34,9 +35,9 @@ export class RequestsController {
         }
     }
 
-    async getAllRequests(req: Request, res: Response): Promise<void> {
+    async getAllPendingRequests(req: Request, res: Response): Promise<void> {
         try {
-            const requests = await this.requestsService.getAllRequests();
+            const requests = await this.requestsService.getAllPendingRequests();
             
             res.status(201).json({
                 message: 'Requests fetched successfully',
@@ -54,6 +55,30 @@ export class RequestsController {
                     error: 'Unknown error occurred'
                 });
             }
+        }
+    }
+
+    async updateRequestStatus(req: Request, res: Response): Promise<void> {
+        try {
+            const id = parseInt(req.params.id);
+            const { status } = req.body;
+            
+            const validStatus = Object.values(Status).includes(status as Status);
+            if (!validStatus) {
+                throw new Error('Invalid status value');
+            }
+
+            const updatedRequest = await this.requestsService.updateRequestStatus(id, status);
+            
+            res.status(200).json({
+                message: 'Request status updated successfully',
+                request: updatedRequest
+            });
+        } catch (error) {
+            res.status(500).json({
+                message: 'Failed to update request status',
+                error: error instanceof Error ? error.message : 'Unknown error occurred'
+            });
         }
     }
 }

@@ -2,6 +2,7 @@ import { RequestsDao } from '../dao/requestsDao';
 import { AccessRequest } from '../entities/AccessRequest';
 import { Software } from '../entities/Software';
 import { ACCESS_TYPE } from '../constants/user';
+import { Status } from '../constants/status';
 import { User } from '../entities/User';
 
 export class RequestsService {
@@ -16,22 +17,32 @@ export class RequestsService {
         request.software = data.software;
         request.accessType = data.accessType;
         request.reason = data.reason;
-        console.log(data.user);
         request.user = data.user;
         // Save requests to database
         await this.requestsDao.saveAccessRequest(request);
     }
 
-    async getAllRequests(): Promise<{ requests: AccessRequest[] }> {
+    //Get all pending requests
+    async getAllPendingRequests(): Promise<{ requests: AccessRequest[] }> {
+        try {
+            const requests = await this.requestsDao.getAllPendingRequests();
+            
+            if (!requests || !requests.requests) {
+                return { requests: [] };
+            }
 
-        const requests = await this.requestsDao.getAllRequests();
-
-        if(!requests)
-        {
-            throw new Error("Requests not found");
+            return requests;
+        } catch (error) {
+            throw new Error("Failed to fetch pending requests");
         }
+    }
 
-        return requests;  
+    async updateRequestStatus(id: number, status: Status): Promise<AccessRequest> {
+        try {
+            return await this.requestsDao.updateRequestStatus(id, status);
+        } catch (error) {
+            throw new Error("Failed to update request status");
+        }
     }
 
 }
