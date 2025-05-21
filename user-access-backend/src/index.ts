@@ -3,6 +3,7 @@ import { AppDataSource } from "./config/data-source";
 import {authRoutes} from "./routes/authRoutes";
 import {healthRoutes} from "./routes/healthRoutes";
 import {testRoutes} from "./routes/testRoutes";
+import { softwareRoutes } from "./routes/softwareRoutes";
 
 const app = express();
 app.use(express.json());
@@ -13,6 +14,7 @@ AppDataSource.initialize()
 
     app.use("/api/health", healthRoutes);
     app.use("/api/auth", authRoutes);
+    app.use("/api/software", softwareRoutes);
     app.use("/api/test", testRoutes);
 
     app.listen(3000, () => {

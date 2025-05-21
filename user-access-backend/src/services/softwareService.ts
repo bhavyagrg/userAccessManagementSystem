@@ -1,23 +1,32 @@
-import { AppDataSource } from "../config/data-source";
-import { Software } from "../entities/Software";
+import { SoftwareDao } from '../dao/softwareDao';
+import { Software } from '../entities/Software';
 
-const SOFTWARE_REPO = AppDataSource.getRepository(Software);
+export class SoftwareService {
+    private softwareDao: SoftwareDao;
 
-export const getAllSoftware = async (): Promise<Software[]> => {
-  return await SOFTWARE_REPO.find();
-};
+    constructor() {
+        this.softwareDao = new SoftwareDao();
+    }
 
-export const addSoftware = async (
-  data: Partial<Software>
-): Promise<Software> => {
-  const software = SOFTWARE_REPO.create(data);
-  return await SOFTWARE_REPO.save(software);
-};
+    async createSoftware(data: { name: string; description: string; accessLevels: string[] }): Promise<void> {
+        const software = new Software();
+        software.name = data.name;
+        software.description = data.description;
+        software.accessLevels = data.accessLevels;
+        // Save user to database
+        await this.softwareDao.saveSoftware(software);
+    }
 
-export const getSoftwareById = async (id: number): Promise<Software | null> => {
-  return await SOFTWARE_REPO.findOneBy({ id });
-};
+    async getAllSoftware(): Promise<{ software: Software[] }> {
 
-export const deleteSoftware = async (id: number): Promise<void> => {
-  await SOFTWARE_REPO.delete(id);
-};
+        const software = await this.softwareDao.getAllSoftware();
+
+        if(!software)
+        {
+            throw new Error("Software not found");
+        }
+
+        return software;  
+    }
+
+}
