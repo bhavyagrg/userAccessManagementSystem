@@ -38,6 +38,9 @@ const LoginForm = () => {
         }
       });
 
+      const userToken = userData.jwtToken;
+      localStorage.setItem('token', userToken);
+
       switch(userData.role){
         case 'Admin':
           navigate('/create-software');

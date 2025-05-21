@@ -25,9 +25,9 @@ const SignupForm = () => {
     setLoading(true);
 
     try {
-      const userData = await authService.login(formData);
+      const userData = await authService.signup(formData);
       localStorage.setItem('user', JSON.stringify(userData));
-      toast.success('Signup successful! Redirecting to login...', {
+      toast.success('Signup successful!', {
         position: 'top-right',
         autoClose: 3000,
         theme: 'light',
@@ -36,17 +36,9 @@ const SignupForm = () => {
           color: 'white'
         }
       });
-      switch(userData.role){
-        case 'Admin':
-          navigate('/create-software');
-          break;
-        case 'Employee':
-          navigate('/request-access');
-          break;
-        case 'Manager':
-          navigate('/pending-requests');
-          break;
-      }
+  navigate("/login");
+
+     
     } catch (err) {
       let errorMessage = 'Signup failed. Please try again.';
       
@@ -67,7 +59,6 @@ const SignupForm = () => {
       setLoading(false);
     }
   };
-
   return (
     <div className="signup-container">
       <form onSubmit={handleSubmit} className="signup-form">
