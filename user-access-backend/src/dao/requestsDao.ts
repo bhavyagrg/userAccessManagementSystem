@@ -9,13 +9,12 @@ export class RequestsDao {
         return this.requestsRepository.save(request);
     }
 
-    async getAllPendingRequests(): Promise<{ requests: AccessRequest[] }> {
-        return { 
-            requests: await this.requestsRepository
+    async getAllPendingRequests(): Promise<AccessRequest[]> {
+        return await this.requestsRepository
                 .createQueryBuilder('request')
                 .where('request.status = :status', { status: Status.Pending })
                 .getMany()
-        };
+;
     }
 
     async updateRequestStatus(id: number, status: Status): Promise<AccessRequest> {

@@ -23,12 +23,12 @@ export class RequestsService {
     }
 
     //Get all pending requests
-    async getAllPendingRequests(): Promise<{ requests: AccessRequest[] }> {
+    async getAllPendingRequests(): Promise<AccessRequest[]> {
         try {
             const requests = await this.requestsDao.getAllPendingRequests();
             
-            if (!requests || !requests.requests) {
-                return { requests: [] };
+            if (!requests) {
+                return [];
             }
 
             return requests;
