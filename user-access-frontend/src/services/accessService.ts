@@ -70,7 +70,7 @@ export const accessService = {
     }
   },
 
-  updateRequestStatus: async (requestId: string, status: 'accepted' | 'rejected') => {
+  updateRequestStatus: async (requestId: string, status: 'Approved' | 'Rejected') => {
     try {
       const token = getToken();
       const response = await fetch(`${API_URL}/requests/${requestId}`, {

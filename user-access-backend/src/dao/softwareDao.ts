@@ -8,7 +8,7 @@ export class SoftwareDao {
         return this.softwareRepository.save(software);
     }
 
-    async getAllSoftware(): Promise<{ software: Software[] }> {
-        return { software: await this.softwareRepository.find() };
+    async getAllSoftware(): Promise<Software[] > {
+        return await this.softwareRepository.find() ;
     }
 }

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import '../styles/signup.css'; // Reuse the same CSS for consistent styling
+import '../styles/signup.css'; 
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/authService';
 import { toast } from 'react-toastify';
-
+import { Button } from '../atoms/Button';
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -99,13 +99,8 @@ const LoginForm = () => {
           disabled={loading}
         />
 
-        <button
-          type="submit"
-          className="signup-button"
-          disabled={loading}
-        >
-          {loading ? 'Logging in...' : 'Login'}
-        </button>
+        <Button value={loading ? 'Logging in...' : 'Login'} type="submit" disabled={loading} />
+        
       </form>
     </div>
   );

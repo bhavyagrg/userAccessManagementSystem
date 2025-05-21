@@ -18,16 +18,16 @@ export class SoftwareService {
         await this.softwareDao.saveSoftware(software);
     }
 
-    async getAllSoftware(): Promise<{ software: Software[] }> {
+    async getAllSoftware(): Promise< Software[] > {
 
-        const software = await this.softwareDao.getAllSoftware();
+        const softwares = await this.softwareDao.getAllSoftware();
 
-        if(!software)
+        if(!softwares)
         {
             throw new Error("Software not found");
         }
 
-        return software;  
+        return softwares;  
     }
 
 }

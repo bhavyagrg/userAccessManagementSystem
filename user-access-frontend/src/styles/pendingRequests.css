@@ -41,6 +41,38 @@
   background-color: #f9fafb;
 }
 
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.status-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.status-button.accepted {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.status-button.accepted:hover {
+  background-color: #45a049;
+}
+
+.status-button.rejected {
+  background-color: #f44336;
+  color: white;
+}
+
+.status-button.rejected:hover {
+  background-color: #da190b;
+}
+
 /* Toggle switch styles */
 .status-toggle {
   display: flex;

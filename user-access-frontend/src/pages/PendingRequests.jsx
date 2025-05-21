@@ -1,25 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { accessService } from '../services/accessService';
 import '../styles/pendingRequests.css';
 
+const RequestStatus = {
+  PENDING: 'Pending',
+  APPROVED: 'Approved',
+  REJECTED: 'Rejected',
+}
+
 const PendingRequests = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    fetchPendingRequests();
-  }, []);
 
   const fetchPendingRequests = async () => {
     try {
       setLoading(true);
       const data = await accessService.getPendingRequests();
       setRequests(data.requests);
-      console.log(data.requests[0])
-      console.log(typeof data.requests)
     } catch (error) {
       toast.error('Failed to load pending requests', {
         position: 'top-right',
@@ -35,28 +33,31 @@ const PendingRequests = () => {
     }
   };
 
+  useEffect(() => {
+    fetchPendingRequests();
+  }, []);
+
   const handleStatusChange = async (requestId, status) => {
     try {
       await accessService.updateRequestStatus(requestId, status);
-      toast.success(`Request ${status === 'accepted' ? 'accepted' : 'rejected'} successfully`, {
+
+      status === RequestStatus.APPROVED ? 
+      toast.success(`Request approved ccessfully`, {
         position: 'top-right',
         autoClose: 3000,
         theme: 'light',
-        style: {
-          backgroundColor: status === 'accepted' ? '#10B981' : '#EF4444',
-          color: 'white',
-        }
-      });
+      }) :
+      toast.warning(`Request rejected successfully`, {
+        position: 'top-right',
+        autoClose: 3000,
+        theme: 'light',
+      })
       fetchPendingRequests();
     } catch (error) {
       toast.error('Failed to update request status', {
         position: 'top-right',
         autoClose: 3000,
         theme: 'light',
-        style: {
-          backgroundColor: '#EF4444',
-          color: 'white',
-        }
       });
     }
   };
@@ -88,53 +89,32 @@ const PendingRequests = () => {
             </tr>
           </thead>
           <tbody>
-            {/* {requests.map((request) => (
+            {requests.map((request) => (
               <tr key={request.id}>
                 <td>{request.id}</td>
-                <td>{request.softwareName}</td>
-                <td>{request.accessLevel}</td>
+                <td>{request.software.name}</td>
+                <td>{request.accessType}</td>
                 <td>{request.reason}</td>
-                <td>{request.requestedBy}</td>
+                <td>{request.user.username}</td>
                 <td>
-                  <div className="status-toggle">
-                    <label className="switch">
-                      <input
-                        type="checkbox"
-                        checked={request.status === 'accepted'}
-                        onChange={(e) =>
-                          handleStatusChange(request.id, e.target.checked ? 'accepted' : 'rejected')
-                        }
-                      />
-                      <span className="slider"></span>
-                    </label>
+                  <div className="action-buttons">
+                    <button
+                      className={`status-button accepted`}
+                      onClick={() => handleStatusChange(request.id, 'Approved')}
+                    >
+                      Accept
+                    </button>
+                    <button
+                      className={`status-button rejected`}
+                      onClick={() => handleStatusChange(request.id, 'Rejected')}
+                    >
+                      Reject
+                    </button>
                   </div>
                 </td>
               </tr>
-            ))} */}
+            ))}
 
-            
-              <tr key="1">
-                <td>1234</td>
-                <td>bhavya</td>
-                <td>Read</td>
-                <td>dcwqvrf3g</td>
-                <td>verqg</td>
-                <td>
-                  <div className="status-toggle">
-                    <label className="switch">
-                      <input
-                        type="checkbox"
-                        checked={true}
-                        onChange={(e) =>
-                          handleStatusChange('rejected')
-                        }
-                      />
-                      <span className="slider"></span>
-                    </label>
-                  </div>
-                </td>
-              </tr>
-            ))
           </tbody>
         </table>
       )}

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LoginRoute, SignupRoute } from './routes/AuthRoutes';
 import { CreateSoftwareRoute } from './routes/SoftwareRoutes';
 import { AccessRequestRoute, PendingRequestsRoute } from './routes/AccessRoutes';
+import { SoftwareListRoute } from './routes/SoftwareRoutes';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/create-software" element={<CreateSoftwareRoute />} />
         <Route path="/request-access" element={<AccessRequestRoute />} />
         <Route path="/pending-requests" element={<PendingRequestsRoute />} />
+        <Route path="/list-softwares" element={<SoftwareListRoute />} />
 
       </Routes>
     </Router>

@@ -1,7 +1,7 @@
-import "../styles/button.css"
+import "../styles/signup.css"
 
-export const Button = ({value, type}) => {
+export const Button = ({value, type, disabled}) => {
     return (
-        <button className="custom-btn" type={type}>{value}</button>
+        <button className="signup-button" type={type} disabled={disabled}>{value}</button>
     )
 }

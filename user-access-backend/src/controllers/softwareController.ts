@@ -34,11 +34,11 @@ export class SoftwareController {
 
     async getAllSoftware(req: Request, res: Response): Promise<void> {
         try {
-            const software = await this.softwareService.getAllSoftware();
+            const softwares = await this.softwareService.getAllSoftware();
             
             res.status(201).json({
                 message: 'Software fetched successfully',
-                software: software
+                softwares: softwares
             });
         } catch (error) {
             if (error instanceof Error) {

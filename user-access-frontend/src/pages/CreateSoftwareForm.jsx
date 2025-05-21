@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import '../styles/auth.css';
 import { toast } from 'react-toastify';
 import { softwareService } from '../services/softwareService';
+import { useNavigate } from 'react-router-dom';
 
 const accessOptions = ['Read', 'Write', 'Admin'];
 
 const CreateSoftwareForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -72,6 +74,9 @@ const CreateSoftwareForm = () => {
 
   return (
     <div className="auth-container">
+      <button style={{maxWidth: '300px', marginBottom: '20px'}} type="submit" className="auth-button" onClick={() => navigate('/list-softwares')}>
+        List Softwares
+      </button>
       <form onSubmit={handleSubmit} className="auth-form">
         <h2 className="auth-heading">Create Software</h2>
 
@@ -157,6 +162,7 @@ const CreateSoftwareForm = () => {
           {loading ? 'Creating...' : 'Create Software'}
         </button>
       </form>
+      
     </div>
   );
 };

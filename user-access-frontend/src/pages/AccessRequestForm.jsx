@@ -8,7 +8,7 @@ const accessOptions = ['Read', 'Write', 'Admin'];
 const AccessRequestForm = () => {
   const [formData, setFormData] = useState({
     software: '',
-    accessTypes: [],
+    accessType: '',
     reason: '',
   });
 
@@ -23,18 +23,18 @@ const AccessRequestForm = () => {
   };
 
   const handleAccessTypeAdd = (type) => {
-    if (!formData.accessTypes.includes(type)) {
+    if (formData.accessType !== type) {
       setFormData(prev => ({
         ...prev,
-        accessTypes: [...prev.accessTypes, type],
+        accessType: type,
       }));
     }
   };
 
-  const handleAccessTypeRemove = (type) => {
+  const handleAccessTypeRemove = () => {
     setFormData(prev => ({
       ...prev,
-      accessTypes: prev.accessTypes.filter(t => t !== type),
+      accessType: '',
     }));
   };
 
@@ -53,7 +53,7 @@ const AccessRequestForm = () => {
           color: 'white',
         }
       });
-      setFormData({ software: '', accessTypes: [], reason: '' });
+      setFormData({ software: '', accessType: '', reason: '' });
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : 'Failed to request access.';
@@ -79,7 +79,7 @@ const AccessRequestForm = () => {
         <input
           type="text"
           name="software"
-          placeholder="Enter Software Name"
+          placeholder="Enter Software ID"
           value={formData.software}
           onChange={handleChange}
           required
@@ -95,11 +95,11 @@ const AccessRequestForm = () => {
                 key={type}
                 type="button"
                 onClick={() => handleAccessTypeAdd(type)}
-                disabled={formData.accessTypes.includes(type)}
+                disabled={formData.accessType === type}
                 style={{
                   padding: '5px 10px',
                   border: '1px solid #007bff',
-                  backgroundColor: formData.accessTypes.includes(type) ? '#ccc' : '#fff',
+                  backgroundColor: formData.accessType === type ? '#ccc' : '#fff',
                   color: '#007bff',
                   borderRadius: '5px',
                   cursor: 'pointer',
@@ -111,9 +111,8 @@ const AccessRequestForm = () => {
           </div>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-            {formData.accessTypes.map(type => (
+            {formData.accessType && 
               <span
-                key={type}
                 style={{
                   backgroundColor: '#007bff',
                   color: '#fff',
@@ -124,10 +123,10 @@ const AccessRequestForm = () => {
                   gap: '5px',
                 }}
               >
-                {type}
+                {formData.accessType} 
                 <button
                   type="button"
-                  onClick={() => handleAccessTypeRemove(type)}
+                  onClick={() => handleAccessTypeRemove(formData.accessType)}
                   style={{
                     background: 'transparent',
                     color: 'white',
@@ -139,7 +138,7 @@ const AccessRequestForm = () => {
                   ×
                 </button>
               </span>
-            ))}
+            }
           </div>
         </div>
 

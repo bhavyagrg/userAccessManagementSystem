@@ -1,5 +1,6 @@
 import React from 'react';
 import CreateSoftwareForm from '../pages/CreateSoftwareForm';
+import SoftwareList from '../pages/SoftwareList';
 
 const CreateSoftwareRoute = () => {
   return (
@@ -7,4 +8,10 @@ const CreateSoftwareRoute = () => {
   );
 };
 
-export { CreateSoftwareRoute };
+const SoftwareListRoute = () => {
+    return (
+        <SoftwareList />
+    );
+};
+
+export { CreateSoftwareRoute, SoftwareListRoute };

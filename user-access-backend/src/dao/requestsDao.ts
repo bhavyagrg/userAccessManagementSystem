@@ -12,7 +12,10 @@ export class RequestsDao {
     async getAllPendingRequests(): Promise<AccessRequest[]> {
         return await this.requestsRepository
                 .createQueryBuilder('request')
+                .leftJoinAndSelect('request.user', 'user')
+                .leftJoinAndSelect('request.software', 'software')
                 .where('request.status = :status', { status: Status.Pending })
+                .select(['request', 'user.username', 'software.name'])
                 .getMany()
 ;
     }
