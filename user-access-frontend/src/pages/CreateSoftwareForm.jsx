@@ -50,10 +50,6 @@ const CreateSoftwareForm = () => {
         position: 'top-right',
         autoClose: 3000,
         theme: 'light',
-        style: {
-          backgroundColor: '#10B981',
-          color: 'white',
-        }
       });
     } catch (err) {
       const errorMessage =
@@ -62,10 +58,6 @@ const CreateSoftwareForm = () => {
         position: 'top-right',
         autoClose: 3000,
         theme: 'light',
-        style: {
-          backgroundColor: '#EF4444',
-          color: 'white',
-        }
       });
     } finally {
       setLoading(false);

@@ -32,10 +32,6 @@ const LoginForm = () => {
         position: 'top-right',
         autoClose: 3000,
         theme: 'light',
-        style: {
-          backgroundColor: '#10B981',
-          color: 'white'
-        }
       });
 
       const userToken = userData.jwtToken;
@@ -63,10 +59,6 @@ const LoginForm = () => {
         position: 'top-right',
         autoClose: 3000,
         theme: 'light',
-        style: {
-          backgroundColor: '#EF4444',
-          color: 'white'
-        }
       });
     } finally {
       setLoading(false);

@@ -48,10 +48,6 @@ const AccessRequestForm = () => {
         position: 'top-right',
         autoClose: 3000,
         theme: 'light',
-        style: {
-          backgroundColor: '#10B981',
-          color: 'white',
-        }
       });
       setFormData({ software: '', accessType: '', reason: '' });
     } catch (err) {
@@ -61,10 +57,6 @@ const AccessRequestForm = () => {
         position: 'top-right',
         autoClose: 3000,
         theme: 'light',
-        style: {
-          backgroundColor: '#EF4444',
-          color: 'white',
-        }
       });
     } finally {
       setLoading(false);
