@@ -1,4 +1,5 @@
 import express from "express";
+const cors = require('cors');
 import { AppDataSource } from "./config/data-source";
 import {authRoutes} from "./routes/authRoutes";
 import {healthRoutes} from "./routes/healthRoutes";
@@ -8,6 +9,7 @@ import { requestsRoutes } from "./routes/requestsRoutes";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 AppDataSource.initialize()
   .then(() => {
