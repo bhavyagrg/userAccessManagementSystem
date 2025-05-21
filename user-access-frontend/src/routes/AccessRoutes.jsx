@@ -1,5 +1,6 @@
 import React from 'react';
 import AccessRequestForm from '../pages/AccessRequestForm';
+import PendingRequests from '../pages/PendingRequests';
 
 const AccessRequestRoute = () => {
   return (
@@ -7,10 +8,11 @@ const AccessRequestRoute = () => {
   );
 };
 
-// const SignupRoute = () => {
-//   return (
-//     <SignupForm />
-//   );
-// };
+const PendingRequestsRoute = () => {
+  return (
+    <PendingRequests />
+  );
+};
 
-export { AccessRequestRoute };
+
+export { AccessRequestRoute, PendingRequestsRoute };

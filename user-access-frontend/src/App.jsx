@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LoginRoute, SignupRoute } from './routes/AuthRoutes';
 import { CreateSoftwareRoute } from './routes/SoftwareRoutes';
-import { AccessRequestRoute } from './routes/AccessRoutes';
+import { AccessRequestRoute, PendingRequestsRoute } from './routes/AccessRoutes';
 
 const App = () => {
   return (
@@ -14,6 +14,7 @@ const App = () => {
         <Route path="/signup" element={<SignupRoute />} />
         <Route path="/create-software" element={<CreateSoftwareRoute />} />
         <Route path="/request-access" element={<AccessRequestRoute />} />
+        <Route path="/pending-requests" element={<PendingRequestsRoute />} />
 
       </Routes>
     </Router>

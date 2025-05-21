@@ -60,7 +60,8 @@ export const accessService = {
         },
       });
 
-      return handleResponse(response);
+      const data = await response.json();
+      return data;
     } catch (error) {
       if (error instanceof Error) {
         throw error;
@@ -69,5 +70,24 @@ export const accessService = {
     }
   },
 
+  updateRequestStatus: async (requestId: string, status: 'accepted' | 'rejected') => {
+    try {
+      const token = getToken();
+      const response = await fetch(`${API_URL}/requests/${requestId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          token: token,
+        },
+        body: JSON.stringify({ status }),
+      });
 
+      return handleResponse(response);
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error;
+      }
+      throw new Error('Network error. Please check your connection.');
+    }
+  }
 };
