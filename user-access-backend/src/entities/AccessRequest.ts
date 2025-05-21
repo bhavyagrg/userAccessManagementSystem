@@ -9,6 +9,7 @@ import {
 import { User } from "./User";
 import { Software } from "./Software";
 import { Status } from "../constants/Status";
+import { ACCESS_TYPE } from "../constants/user";
 
 @Entity()
 export class AccessRequest {
@@ -21,8 +22,8 @@ export class AccessRequest {
   @ManyToOne(() => Software, (software) => software.requests)
   software!: Software;
 
-  @Column()
-  accessType!: "Read" | "Write" | "Admin";
+  @Column({ type: "enum", enum: ACCESS_TYPE, default: ACCESS_TYPE.Read })
+  accessType!: ACCESS_TYPE;
 
   @Column("text")
   reason!: string;
@@ -30,9 +31,4 @@ export class AccessRequest {
   @Column({ type: "enum", enum: Status, default: Status.Pending })
   status!: Status;
 
-  @CreateDateColumn()
-  createdAt!: Date;
-
-  @UpdateDateColumn()
-  updatedAt!: Date;
 }

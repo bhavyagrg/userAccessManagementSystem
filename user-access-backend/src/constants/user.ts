@@ -5,4 +5,8 @@ export enum USER_ROLES {
   }
 
   
-  // add all user related constants here remove role.ts
+export enum ACCESS_TYPE {
+    Read = "Read",
+    Write = "Write",
+    Admin = "Admin"
+}
