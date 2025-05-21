@@ -10,6 +10,6 @@ const router = express.Router();
 const softwareController = new SoftwareController();
 
 router.post('/', validateUser, roleValidator(USER_ROLES.Admin), softwareController.createSoftware.bind(softwareController));
-// router.get('/', validateUser, roleValidator(USER_ROLES.Admin), softwareController.getAllSoftware.bind(softwareController));
+router.get('/list-softwares', validateUser, roleValidator(USER_ROLES.Admin), softwareController.getAllSoftware.bind(softwareController));
 
 export const softwareRoutes = router;
