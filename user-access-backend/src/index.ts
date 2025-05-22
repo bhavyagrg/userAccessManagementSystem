@@ -1,9 +1,8 @@
 import express from "express";
-const cors = require('cors');
+const cors = require("cors");
 import { AppDataSource } from "./config/data-source";
-import {authRoutes} from "./routes/authRoutes";
-import {healthRoutes} from "./routes/healthRoutes";
-import {testRoutes} from "./routes/testRoutes";
+import { authRoutes } from "./routes/authRoutes";
+import { healthRoutes } from "./routes/healthRoutes";
 import { softwareRoutes } from "./routes/softwareRoutes";
 import { requestsRoutes } from "./routes/requestsRoutes";
 
@@ -19,7 +18,6 @@ AppDataSource.initialize()
     app.use("/api/auth", authRoutes);
     app.use("/api/software", softwareRoutes);
     app.use("/api/requests", requestsRoutes);
-    app.use("/api/test", testRoutes);
 
     app.listen(3000, () => {
       console.log("Server running at http://localhost:3000");
