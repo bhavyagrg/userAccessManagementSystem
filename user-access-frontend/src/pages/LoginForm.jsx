@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import '../styles/signup.css'; 
-import { useNavigate } from 'react-router-dom';
-import { authService } from '../services/authService';
-import { toast } from 'react-toastify';
-import { Button } from '../atoms/Button';
+import React, { useState } from "react";
+import "../styles/signup.css";
+import { useNavigate } from "react-router-dom";
+import { authService } from "../services/authService";
+import { toast } from "react-toastify";
+import { Button } from "../components/Button";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -27,38 +27,37 @@ const LoginForm = () => {
 
     try {
       const userData = await authService.login(formData);
-      localStorage.setItem('user', JSON.stringify(userData));
-      toast.success('Login successful! Redirecting...', {
-        position: 'top-right',
+      localStorage.setItem("user", JSON.stringify(userData));
+      toast.success("Login successful! Redirecting...", {
+        position: "top-right",
         autoClose: 3000,
-        theme: 'light',
+        theme: "light",
       });
 
       const userToken = userData.jwtToken;
-      localStorage.setItem('token', userToken);
+      localStorage.setItem("token", userToken);
 
-      switch(userData.role){
-        case 'Admin':
-          navigate('/create-software');
+      switch (userData.role) {
+        case "Admin":
+          navigate("/create-software");
           break;
-        case 'Employee':
-          navigate('/request-access');
+        case "Employee":
+          navigate("/request-access");
           break;
-        case 'Manager':
-          navigate('/pending-requests');
+        case "Manager":
+          navigate("/pending-requests");
           break;
       }
-
     } catch (err) {
-      let errorMessage = 'Login failed. Please try again.';
+      let errorMessage = "Login failed. Please try again.";
       if (err instanceof Error) {
         errorMessage = err.message;
       }
 
       toast.error(errorMessage, {
-        position: 'top-right',
+        position: "top-right",
         autoClose: 3000,
-        theme: 'light',
+        theme: "light",
       });
     } finally {
       setLoading(false);
@@ -91,8 +90,11 @@ const LoginForm = () => {
           disabled={loading}
         />
 
-        <Button value={loading ? 'Logging in...' : 'Login'} type="submit" disabled={loading} />
-        
+        <Button
+          value={loading ? "Logging in..." : "Login"}
+          type="submit"
+          disabled={loading}
+        />
       </form>
     </div>
   );
